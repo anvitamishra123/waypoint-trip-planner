@@ -1,0 +1,26 @@
+{
+  "name": "trip-planner",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k -n WEB,API -c blue,green \"vite\" \"node server/index.js\"",
+    "start": "concurrently -k -n WEB,API -c blue,green \"vite\" \"node server/index.js\"",
+    "server": "node server/index.js",
+    "test": "node server/__tests__/run.js",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.3",
+    "concurrently": "^9.0.1",
+    "vite": "^5.4.10"
+  }
+}
