@@ -8,7 +8,7 @@ itinerary you can expand, reorder, and trim down — not a chat transcript.
 * Free-form textarea → sent to Groq (Llama/OSS models via Groq's fast
 inference API) through a tiny Express backend.
 * The model is forced to respond through a **tool call** whose parameters
-schema *is* the itinerary shape (`build\\\\\\\_itinerary`), using OpenAI-style
+schema *is* the itinerary shape (`build\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_itinerary`), using OpenAI-style
 function calling, rather than being asked to "please output JSON" in a
 text prompt. This is the main defense against malformed output — the
 model has no path to reply except by filling in the schema.
@@ -22,10 +22,14 @@ dropping stops that are missing a name, dropping days with no usable
 stops, and failing loudly (with a specific error) if the whole thing is
 unusable.
 
+&#x20;\*\*Demo video:\*\* https://drive.google.com/file/d/1y2IHgwUDhlKyxhgFwj48fs0CG0MVhX6H/view?usp=drive\_link
+
+
+
 ### How the failure-handling is actually verified
 
 Rather than just asserting the error-handling code is correct, there's a
-small integration test suite (`server/\\\\\\\_\\\\\\\_tests\\\\\\\_\\\\\\\_/`) that boots the real
+small integration test suite (`server/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_tests\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_/`) that boots the real
 backend against a mock stand-in for Groq's API, and forces every failure
 mode the assignment calls out one at a time: malformed JSON, wrong
 shape/empty days, the model skipping the tool call entirely, an empty
@@ -56,12 +60,12 @@ Requires Node 18+.
 ```bash
 npm install
 cp server/.env.example server/.env
-# then edit server/.env and add your GROQ\\\\\\\_API\\\\\\\_KEY (free at console.groq.com/keys)
+# then edit server/.env and add your GROQ\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_API\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_KEY (free at console.groq.com/keys)
 npm start
 ```
 
 `npm start` runs the Vite dev server (`:5173`) and the Express API
-(`:3001`) together via `concurrently`. Vite proxies `/api/\\\\\\\*` requests to
+(`:3001`) together via `concurrently`. Vite proxies `/api/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*` requests to
 the Express server, so the frontend never sees the API key. Open
 `http://localhost:5173`.
 
@@ -71,11 +75,11 @@ If you'd rather run them separately: `npm run server` in one terminal,
 ### Using a different provider
 
 The FAQ says any provider is fine. Only `server/index.js` is
-Groq-specific — it builds one tool schema and forces `tool\\\\\\\_choice` to it
+Groq-specific — it builds one tool schema and forces `tool\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_choice` to it
 via Groq's OpenAI-compatible `/chat/completions` endpoint. Swapping
 providers means swapping that one file: Anthropic's Messages API (`tools`
 
-* `tool\\\\\\\_choice: {type:"tool", name:...}`), OpenAI directly, or Gemini's
+* `tool\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_choice: {type:"tool", name:...}`), OpenAI directly, or Gemini's
 `responseSchema` all do the equivalent job. `server/itinerarySchema.js`
 (the schema + validator) doesn't need to change — it's already
 provider-agnostic JSON Schema.
